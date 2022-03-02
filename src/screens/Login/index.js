@@ -4,7 +4,7 @@ import {
     TouchableOpacity, ScrollView
 } from 'react-native'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import styles from '../../commons/styles/auth'
@@ -28,13 +28,22 @@ const Login = ({ navigation }) => {
             password: password
         }
         dispatch(loginAction(body))
+        // if (auth.isFulfilled) {
+        //     const { token } = auth
+        //     dispatch(userAction(token))
+        //     // navigation.replace('NavTab')
+        //     navigation.navigate('NavTab')
+        // }
+    }
+
+    useEffect(() => {
         if (auth.isFulfilled) {
             const { token } = auth
             dispatch(userAction(token))
             // navigation.replace('NavTab')
-            // navigation.navigate('NavTab')
+            navigation.navigate('NavTab')
         }
-    }
+    }, [])
 
     return (
         <View style={styles.container}>
