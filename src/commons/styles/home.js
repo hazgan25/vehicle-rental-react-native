@@ -61,6 +61,14 @@ const styles = StyleSheet.create({
         lineHeight: 16,
         color: '#393939',
         alignSelf: 'center'
+    },
+    vehiclesImgList: {
+        height: 168,
+        width: 265,
+        borderRadius: 15,
+        marginLeft: 12.5,
+        marginRight: 12.5,
+        marginTop: 18,
     }
 })
 

@@ -12,6 +12,7 @@ import { vehicleTypeLimit } from '../../modules/utils/vehicles'
 import styles from '../../commons/styles/home'
 
 const homeBg = require('../../assets/img/home.png')
+const vehicleDefault = require('../../assets/img/vehicleDefault.png')
 
 const Home = () => {
     const state = useSelector(state => state)
@@ -20,6 +21,7 @@ const Home = () => {
     const [listBike, setListBike] = useState([])
 
     const { role } = state.auth.userData
+
     useEffect(() => {
         const paramCar = { type: 1, limit: 5 }
         const paramMotorBike = { type: 2, limit: 5 }
@@ -32,13 +34,14 @@ const Home = () => {
                 setLisCar(res[0].data.result.data)
                 setListMotorBike(res[1].data.result.data)
                 setListBike(res[2].data.result.data)
-                console.log('ini res', res)
+                // console.log('ini res', res[0].data.result.data)
             })
-            .catch(() => {
+            .catch((err) => {
                 console.log(err)
             })
-
+        // console.log(listCar)
     }, [])
+
     return (
         <ScrollView style={styles.container}>
             <ImageBackground source={homeBg} style={styles.imgHeader} />
@@ -50,21 +53,24 @@ const Home = () => {
             ) : (
                 <></>
             )}
+
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 320, alignSelf: 'center', marginTop: 22 }}>
                 <Text style={styles.listText}>Cars</Text>
                 <Text style={styles.viewMoreText}>View More</Text>
             </View>
-
             {listCar.length !== 0 ? (
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     {Array.isArray(listCar) && Array.length > 0 &&
                         listCar.map((data, idx) => (
                             <>
                                 <TouchableOpacity key={idx}>
-                                    <Image source={{ uri: data.images[0] }} />
+
+                                    <Image source={!data.image ? vehicleDefault : { uri: data.image }} style={styles.vehiclesImgList}
+                                        placeholder='blur'
+                                        blurDataURL={vehicleDefault}
+                                        onError={() => { vehicleDefault }}
+                                    />
                                 </TouchableOpacity>
-                                {/* <Image source={{uri}} /> */}
-                                {console.log(data.images[0])}
                             </>
                         ))
                     }
@@ -74,6 +80,60 @@ const Home = () => {
                     <Text style={{ alignSelf: 'center', fontSize: 20, fontWeight: 'bold' }}>Coming Soon</Text>
                 </View>
             )}
+
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 320, alignSelf: 'center', marginTop: 22 }}>
+                <Text style={styles.listText}>Motorbike</Text>
+                <Text style={styles.viewMoreText}>View More</Text>
+            </View>
+            {listMotorBike.length !== 0 ? (
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                    {Array.isArray(listMotorBike) && Array.length > 0 &&
+                        listMotorBike.map((data, idx) => (
+                            <>
+                                <TouchableOpacity key={idx}>
+                                    <Image source={!data.image ? vehicleDefault : { uri: data.image }} style={styles.vehiclesImgList}
+                                        placeholder='blur'
+                                        blurDataURL={vehicleDefault}
+                                        onError={() => { vehicleDefault }}
+                                    />
+                                </TouchableOpacity>
+                            </>
+                        ))
+                    }
+                </ScrollView>
+            ) : (
+                <View style={{ width: '100%', height: 100, justifyContent: 'center' }}>
+                    <Text style={{ alignSelf: 'center', fontSize: 20, fontWeight: 'bold' }}>Coming Soon</Text>
+                </View>
+            )}
+
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 320, alignSelf: 'center', marginTop: 22 }}>
+                <Text style={styles.listText}>Bike</Text>
+                <Text style={styles.viewMoreText}>View More</Text>
+            </View>
+            {listBike.length !== 0 ? (
+                <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginBottom: 18 }}>
+                    {Array.isArray(listBike) && Array.length > 0 &&
+                        listBike.map((data, idx) => (
+                            <>
+                                <TouchableOpacity key={idx}>
+                                    <Image source={!data.image ? vehicleDefault : { uri: data.image }} style={styles.vehiclesImgList}
+                                        placeholder='blur'
+                                        blurDataURL={vehicleDefault}
+                                        onError={() => { vehicleDefault }}
+                                    />
+                                </TouchableOpacity>
+                            </>
+                        ))
+                    }
+                </ScrollView>
+            ) : (
+                <View style={{ width: '100%', height: 100, justifyContent: 'center' }}>
+                    <Text style={{ alignSelf: 'center', fontSize: 20, fontWeight: 'bold' }}>Coming Soon</Text>
+                </View>
+            )}
+
+
         </ScrollView>
     )
 }

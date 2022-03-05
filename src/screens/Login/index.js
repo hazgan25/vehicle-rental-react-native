@@ -28,21 +28,21 @@ const Login = ({ navigation }) => {
             password: password
         }
         dispatch(loginAction(body))
-        // if (auth.isFulfilled) {
-        //     const { token } = auth
-        //     dispatch(userAction(token))
-        //     // navigation.replace('NavTab')
-        //     navigation.navigate('NavTab')
-        // }
-    }
-
-    useEffect(() => {
         if (auth.isFulfilled) {
             const { token } = auth
             dispatch(userAction(token))
             // navigation.replace('NavTab')
             navigation.navigate('NavTab')
         }
+    }
+
+    useEffect(() => {
+        // if (auth.isFulfilled) {
+        //     const { token } = auth
+        //     dispatch(userAction(token))
+        //     // navigation.replace('NavTab')
+        //     navigation.navigate('NavTab')
+        // }
     }, [])
 
     return (
