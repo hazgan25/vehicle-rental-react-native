@@ -1,6 +1,8 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, TouchableOpacity, Image, Dimensions, Platform } from 'react-native'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+
+import Modal from 'react-native-modal'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -12,7 +14,12 @@ const defaultProfile = require('../../assets/img/defaultProfile.png')
 const vehicleRentalIcon = require('../../assets/icons/vehicleRentalIcon.png')
 const nextArrow = require('../../assets/icons/nextArrow.png')
 
+const deviceWidth = Dimensions.get('window').width
+const deviceHeight = Platform.OS === 'android' ? Dimensions.get('window').height :
+    require('react-native-extra-dimensions-android').get('REAL_WINDOW_HEIGHT')
+
 const Profile = ({ navigation }) => {
+    const [isModalVisible, setModalVisible] = useState(false)
     const state = useSelector(state => state)
     const dispatch = useDispatch()
 
@@ -21,11 +28,16 @@ const Profile = ({ navigation }) => {
 
     const { name, email, phone, image } = userData
 
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible)
+    }
+
     const logoutHandler = () => {
         dispatch(logoutAction(token))
             .then(async () => {
                 try {
                     await AsyncStorage.removeItem('persist:root')
+                    setModalVisible(false)
                     navigation.navigate('Home')
                 }
                 catch (err) {
@@ -92,15 +104,62 @@ const Profile = ({ navigation }) => {
                             <Image source={nextArrow} style={styles.nextArrow} />
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
-                            <Text style={styles.listText}>Update password</Text>
+                            <Text style={styles.listText} >Update password</Text>
                         </View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
-                            <Text style={styles.listText} onPress={logoutHandler}>Log out</Text>
+                            <Text style={styles.listText} onPress={toggleModal}>Log out</Text>
                         </View>
+
+                        <Modal isVisible={isModalVisible}
+                            animationIn='zoomIn'
+                            animationInTiming={800}
+                            animationOut='zoomOut'
+                            animationOutTiming={800}
+                        >
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <View style={{
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    backgroundColor: '#fff',
+                                    width: deviceWidth - 70,
+                                    height: deviceHeight - 500,
+                                    borderRadius: 50
+                                }}>
+                                    <Text style={{
+                                        fontFamily: 'Nunito',
+                                        fontStyle: 'normal',
+                                        fontWeight: 'bold',
+                                        fontSize: 18,
+                                    }}>Are You Sure?!</Text>
+
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: deviceWidth - 170, top: 33 }}>
+                                        <TouchableOpacity style={{ backgroundColor: '#7f0000', borderRadius: 10, width: 80, height: 50 }} onPress={logoutHandler}>
+                                            <Text style={{
+                                                fontWeight: 'bold',
+                                                color: '#fff',
+                                                textAlign: 'center',
+                                                top: 11
+                                            }}>Log out</Text>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity style={{ backgroundColor: 'grey', borderRadius: 10, width: 80, height: 50 }} onPress={toggleModal}>
+                                            <Text style={{
+                                                fontWeight: 'bold',
+                                                color: '#fff',
+                                                textAlign: 'center',
+                                                top: 11
+                                            }}>Cancel</Text>
+                                        </TouchableOpacity>
+                                    </View>
+
+                                </View>
+                            </View>
+                        </Modal>
+
                     </View>
-                )}
-            </View>
-        </View>
+                )
+                }
+            </View >
+        </View >
     )
 }
 
