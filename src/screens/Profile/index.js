@@ -9,6 +9,8 @@ import styles from '../../commons/styles/profile'
 import { logoutAction } from '../../redux/actions/auth'
 
 const defaultProfile = require('../../assets/img/defaultProfile.png')
+const vehicleRentalIcon = require('../../assets/icons/vehicleRentalIcon.png')
+const nextArrow = require('../../assets/icons/nextArrow.png')
 
 const Profile = ({ navigation }) => {
     const state = useSelector(state => state)
@@ -16,13 +18,12 @@ const Profile = ({ navigation }) => {
 
     const { token } = state.auth
     const { userData } = state.auth
-    console.log(userData)
 
     const { name, email, phone, image } = userData
 
     const logoutHandler = () => {
         dispatch(logoutAction(token))
-            .then(async (res) => {
+            .then(async () => {
                 try {
                     await AsyncStorage.removeItem('persist:root')
                     navigation.navigate('Home')
@@ -40,7 +41,12 @@ const Profile = ({ navigation }) => {
         <View style={styles.container}>
             <View style={styles.box}>
                 {!token ? (
-                    <></>
+                    <View>
+                        <View style={styles.boxImg}>
+                            <Image source={vehicleRentalIcon} style={styles.profileImg} />
+                        </View>
+                        <Text style={styles.name}>Vehicle Rental</Text>
+                    </View>
                 ) : (
                     <View>
                         <View style={styles.boxImg}>
@@ -50,18 +56,50 @@ const Profile = ({ navigation }) => {
                         <Text style={styles.email}>{email}</Text>
                         <Text style={styles.phone}>{phone === null || phone === '' ? 'No Number Phone' : phone}</Text>
                     </View>
-                )
-
-                }
-
+                )}
             </View>
-            <TouchableOpacity onPress={logoutHandler}>
-                <Text >Logout</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('Login') }}>
-                <Text>Login</Text>
-            </TouchableOpacity>
-            <Text>{!token ? (<>belum login</>) : (<>sudah Login</>)}</Text>
+
+            <View style={{ top: 26 }}>
+                {!token ? (
+                    <View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
+                            <Text style={styles.listText}>FAQ</Text>
+                            <Image source={nextArrow} style={styles.nextArrow} />
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
+                            <Text style={styles.listText}>Help</Text>
+                            <Image source={nextArrow} style={styles.nextArrow} />
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
+                            <Text style={styles.listText} onPress={() => { navigation.navigate('Register') }}>Register</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
+                            <Text style={styles.listText} onPress={() => { navigation.navigate('Login') }}>Login</Text>
+                        </View>
+                    </View>
+                ) : (
+                    <View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
+                            <Text style={styles.listText}>Your favourites</Text>
+                            <Image source={nextArrow} style={styles.nextArrow} />
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
+                            <Text style={styles.listText}>FAQ</Text>
+                            <Image source={nextArrow} style={styles.nextArrow} />
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
+                            <Text style={styles.listText}>Help</Text>
+                            <Image source={nextArrow} style={styles.nextArrow} />
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
+                            <Text style={styles.listText}>Update password</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
+                            <Text style={styles.listText} onPress={logoutHandler}>Log out</Text>
+                        </View>
+                    </View>
+                )}
+            </View>
         </View>
     )
 }

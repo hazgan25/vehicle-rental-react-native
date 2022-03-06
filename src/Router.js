@@ -21,7 +21,7 @@ const chatIcon = require('./assets/icons/chatIcon.png')
 const profileIcon = require('./assets/icons/profileIcon.png')
 
 const MainTab = () => (
-    <Tab.Navigator initialRouteName='Home' screenOptions={{ headerShown: false, tabBarStyle: { height: 78, borderRadius: 10 } }} >
+    <Tab.Navigator initialRouteName='Home' sceneContainerStyle={{ backgroundColor: '#fff' }} screenOptions={{ headerShown: false, tabBarStyle: { height: 78, borderRadius: 10 } }} >
         <Tab.Screen name='Home'
             options={{
                 tabBarShowLabel: false,

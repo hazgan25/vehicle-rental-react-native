@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.50,
         shadowRadius: 1.68,
 
-        elevation: 15,
+        elevation: 8,
     },
     boxImg: {
         position: 'absolute',
@@ -61,6 +61,18 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 30,
         top: 180
+    },
+    listText: {
+        fontFamily: 'Nunito',
+        fontStyle: 'normal',
+        fontWeight: 'bold',
+        fontSize: 18,
+        lineHeight: 25
+    },
+    nextArrow: {
+        height: 12,
+        width: 8,
+        alignSelf: 'center'
     }
 })
 
