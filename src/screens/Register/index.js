@@ -31,9 +31,11 @@ const Register = ({ navigation }) => {
                     navigation.navigate('Login')
                 }
             })
-            .catch((err) => console.log(err))
+            .catch((err) => {
+
+            })
     }
-    // console.log(!msgSuccess)
+
     return (
         <View style={styles.container}>
             <ImageBackground source={registerBg} style={styles.background}>

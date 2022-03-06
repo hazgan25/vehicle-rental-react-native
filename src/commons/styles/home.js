@@ -26,8 +26,14 @@ const styles = StyleSheet.create({
 
         borderRadius: 10,
         top: 61,
-        // marginLeft: '9%'
         alignSelf: 'center'
+    },
+    searchIcon: {
+        position: 'absolute',
+        height: 20,
+        width: 20,
+        right: 60,
+        top: 73
     },
     btnAdd: {
         position: 'absolute',
@@ -69,7 +75,8 @@ const styles = StyleSheet.create({
         marginLeft: 12.5,
         marginRight: 12.5,
         marginTop: 18,
-    }
+    },
+
 })
 
 export default styles

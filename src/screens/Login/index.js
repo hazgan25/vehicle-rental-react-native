@@ -21,6 +21,8 @@ const Login = ({ navigation }) => {
     const state = useSelector(state => state)
 
     const { auth } = state
+    const { token } = auth
+    console.log(token)
 
     const loginHandler = () => {
         const body = {
@@ -28,22 +30,17 @@ const Login = ({ navigation }) => {
             password: password
         }
         dispatch(loginAction(body))
-        if (auth.isFulfilled) {
-            const { token } = auth
-            dispatch(userAction(token))
-            // navigation.replace('NavTab')
-            navigation.navigate('NavTab')
-        }
     }
 
     useEffect(() => {
-        // if (auth.isFulfilled) {
-        //     const { token } = auth
-        //     dispatch(userAction(token))
-        //     // navigation.replace('NavTab')
-        //     navigation.navigate('NavTab')
-        // }
-    }, [])
+        if (auth.isFulfilled === true) {
+            navigation.navigate('Main')
+            dispatch(userAction(token))
+        }
+        if (auth.isReject === true) {
+            console.log('err?');
+        }
+    }, [navigation, dispatch, auth])
 
     return (
         <View style={styles.container}>

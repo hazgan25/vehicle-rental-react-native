@@ -13,6 +13,7 @@ import styles from '../../commons/styles/home'
 
 const homeBg = require('../../assets/img/home.png')
 const vehicleDefault = require('../../assets/img/vehicleDefault.png')
+const searchIconHome = require('../../assets/icons/searchIconHome.png')
 
 const Home = () => {
     const state = useSelector(state => state)
@@ -20,7 +21,7 @@ const Home = () => {
     const [listMotorBike, setListMotorBike] = useState([])
     const [listBike, setListBike] = useState([])
 
-    const { role } = state.auth.userData
+    const { userData } = state.auth
 
     useEffect(() => {
         const paramCar = { type: 1, limit: 5 }
@@ -39,14 +40,17 @@ const Home = () => {
             .catch((err) => {
                 console.log(err)
             })
-        // console.log(listCar)
     }, [])
 
     return (
         <ScrollView style={styles.container}>
             <ImageBackground source={homeBg} style={styles.imgHeader} />
             <TextInput placeholder='Search Vehicles' style={styles.search} placeholderTextColor='#fff' />
-            {role === 'owner' ? (
+
+            <TouchableOpacity style={styles.searchIcon}>
+                <Image source={searchIconHome} />
+            </TouchableOpacity>
+            {userData && userData.role === 'owner' ? (
                 <TouchableOpacity style={styles.btnAdd}>
                     <Text style={styles.addNewText}>Add New Item</Text>
                 </TouchableOpacity>
@@ -61,17 +65,16 @@ const Home = () => {
             {listCar.length !== 0 ? (
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                     {Array.isArray(listCar) && Array.length > 0 &&
-                        listCar.map((data, idx) => (
-                            <>
-                                <TouchableOpacity key={idx}>
-
+                        listCar.map((data) => (
+                            <React.Fragment key={data.id}>
+                                <TouchableOpacity>
                                     <Image source={!data.image ? vehicleDefault : { uri: data.image }} style={styles.vehiclesImgList}
                                         placeholder='blur'
                                         blurDataURL={vehicleDefault}
                                         onError={() => { vehicleDefault }}
                                     />
                                 </TouchableOpacity>
-                            </>
+                            </React.Fragment>
                         ))
                     }
                 </ScrollView>
@@ -114,16 +117,16 @@ const Home = () => {
             {listBike.length !== 0 ? (
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginBottom: 18 }}>
                     {Array.isArray(listBike) && Array.length > 0 &&
-                        listBike.map((data, idx) => (
-                            <>
-                                <TouchableOpacity key={idx}>
+                        listBike.map((data) => (
+                            <React.Fragment key={data.id}>
+                                <TouchableOpacity>
                                     <Image source={!data.image ? vehicleDefault : { uri: data.image }} style={styles.vehiclesImgList}
                                         placeholder='blur'
                                         blurDataURL={vehicleDefault}
                                         onError={() => { vehicleDefault }}
                                     />
                                 </TouchableOpacity>
-                            </>
+                            </React.Fragment>
                         ))
                     }
                 </ScrollView>

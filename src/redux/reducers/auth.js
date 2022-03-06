@@ -12,7 +12,7 @@ const initialState = {
 }
 
 const authReducer = (state = initialState, action) => {
-    const { auth, user } = ACTION_STRING
+    const { auth, user, logout } = ACTION_STRING
     const { Pending, Fulfilled, Rejected } = ActionType
 
     switch (action.type) {
@@ -47,6 +47,17 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 userData
+            }
+
+        case logout.concat('_', Fulfilled):
+            return {
+                ...state,
+                isFulfilled: false,
+                isReject: false,
+                isPending: false,
+                id: null,
+                token: null,
+                userData: {}
             }
 
         default: return state

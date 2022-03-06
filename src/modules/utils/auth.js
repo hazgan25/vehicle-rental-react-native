@@ -1,19 +1,17 @@
 import axios from 'axios'
-
-const url = process.env.HOST + '/auth'
-// const url = "https://vehicle-rental4.herokuapp.com"
+const urlAuth = process.env.HOST + '/auth'
 
 export const Login = (body) => {
-    const urlLogin = url + '/login'
+    const urlLogin = urlAuth + '/login'
     return axios.post(urlLogin, body)
 }
 
 export const SignUp = (body) => {
-    const urlRegister = url + '/register'
+    const urlRegister = urlAuth + '/register'
     return axios.post(urlRegister, body)
 }
 
 export const Logout = (token) => {
-    const urlLogout = url + '/logout'
+    const urlLogout = urlAuth + '/logout'
     return axios.delete(urlLogout, { headers: { 'x-access-token': token } })
 }

@@ -10,16 +10,7 @@ import Home from './screens/Home'
 import History from './screens/History'
 import Chat from './screens/Chat'
 import Profile from './screens/Profile'
-
-// import Svg, {
-
-// } from 
-
-// import homeIcon from './assets/svg/home.svg'
-// import historyIcon from './assets/svg/history.svg'
-// import chatIcon from './assets/svg/chat.svg'
-// import profileIcon from './assets/svg/profile.svg'
-// import profileIcon from './assets/img/profileIcon.png'
+import { useSelector } from 'react-redux'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -29,16 +20,7 @@ const historyIcon = require('./assets/icons/historyIcon.png')
 const chatIcon = require('./assets/icons/chatIcon.png')
 const profileIcon = require('./assets/icons/profileIcon.png')
 
-// const auth = () => (
-//     <Stack.Navigator initialRouteName='Login' screenOptions={{header:fa}}>
-//         <Stack.Screen name='Login' component={Login} />
-//         <Stack.Screen name='Register' component={Register} />
-//         <Stack.Screen name='ForgotPass' component={ForgotPassword} />
-//     </Stack.Navigator>
-// )
-
-
-const NavTab = () => (
+const MainTab = () => (
     <Tab.Navigator initialRouteName='Home' screenOptions={{ headerShown: false, tabBarStyle: { height: 78, borderRadius: 10 } }} >
         <Tab.Screen name='Home'
             options={{
@@ -108,13 +90,14 @@ const NavTab = () => (
 )
 
 const Router = () => (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName='Main' screenOptions={{ headerShown: false }}>
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='Register' component={Register} />
         <Stack.Screen name='ForgotPass' component={ForgotPassword} />
-        <Stack.Screen name='NavTab' component={NavTab} />
+        <Stack.Screen name='Main' component={MainTab} />
     </Stack.Navigator>
 )
+
 
 
 export default Router
