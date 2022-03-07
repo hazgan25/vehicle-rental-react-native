@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito',
         fontStyle: 'normal',
         fontWeight: 'bold',
+        width: 317,
         fontSize: 18,
         lineHeight: 19,
         marginTop: 10,

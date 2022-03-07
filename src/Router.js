@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, StyleSheet } from 'react-native'
+import { View, Image } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
@@ -10,7 +10,6 @@ import Home from './screens/Home'
 import History from './screens/History'
 import Chat from './screens/Chat'
 import Profile from './screens/Profile'
-import { useSelector } from 'react-redux'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -97,7 +96,5 @@ const Router = () => (
         <Stack.Screen name='Main' component={MainTab} />
     </Stack.Navigator>
 )
-
-
 
 export default Router

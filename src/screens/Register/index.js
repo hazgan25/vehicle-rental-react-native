@@ -17,6 +17,7 @@ const Register = ({ navigation }) => {
     const [password, setPassword] = useState('')
     const [phone, setPhone] = useState('')
     const [msgSuccess, setMsgSuccess] = useState('')
+    const [errMsg, setErrMsg] = useState('')
 
     const registerHandler = () => {
         const body = {
@@ -32,7 +33,7 @@ const Register = ({ navigation }) => {
                 }
             })
             .catch((err) => {
-
+                console.log(err)
             })
     }
 

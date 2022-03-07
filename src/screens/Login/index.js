@@ -1,16 +1,16 @@
+import React, { useEffect, useState } from 'react'
 import {
     View, ImageBackground, Text,
     TextInput, KeyboardAvoidingView,
     TouchableOpacity, ScrollView
 } from 'react-native'
+import Modal from 'react-native-modal'
 
-import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
-import styles from '../../commons/styles/auth'
-
 import { loginAction } from '../../redux/actions/auth'
 import { userAction } from '../../redux/actions/auth'
+
+import styles from '../../commons/styles/auth'
 
 const authBg = require('../../assets/img/authBg.png')
 
@@ -22,7 +22,6 @@ const Login = ({ navigation }) => {
 
     const { auth } = state
     const { token } = auth
-    console.log(token)
 
     const loginHandler = () => {
         const body = {

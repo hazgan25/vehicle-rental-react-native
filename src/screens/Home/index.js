@@ -42,6 +42,8 @@ const Home = () => {
             })
     }, [])
 
+    console.log(listCar);
+
     return (
         <ScrollView style={styles.container}>
             <ImageBackground source={homeBg} style={styles.imgHeader} />
