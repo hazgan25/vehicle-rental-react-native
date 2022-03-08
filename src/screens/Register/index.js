@@ -63,10 +63,7 @@ const Register = ({ navigation }) => {
                                     <Text style={styles.textAuth}>Sign Up</Text>
                                 </TouchableOpacity>
                                 <Text style={styles.alreadyText}>{`Already have an account ? `}
-                                    <Text style={styles.signClick} onPress={() => {
-                                        errMsg && !msgSuccess ? setIsmodal(false) :
-                                            navigation.navigate('Login') && setIsmodal(false)
-                                    }}>Login Now</Text>
+                                    <Text style={styles.signClick} onPress={() => { navigation.navigate('Login') }}>Login Now</Text>
                                 </Text>
                             </View>
                         </KeyboardAvoidingView>
