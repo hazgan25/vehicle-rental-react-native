@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         lineHeight: 16,
         height: 51,
         width: 317,
-        backgroundColor: 'rgba(253, 222, 222, 0.5)',
+        backgroundColor: 'rgba(253, 222, 222, 0.7)',
         color: '#fff',
         paddingLeft: 14,
     },
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         lineHeight: 16,
         height: 51,
         width: 317,
-        backgroundColor: 'rgba(253, 222, 222, 0.5)',
+        backgroundColor: 'rgba(253, 222, 222, 0.7)',
         color: '#fff',
         paddingLeft: 14,
         marginTop: 18
@@ -115,16 +115,17 @@ const styles = StyleSheet.create({
     signClick: {
         fontWeight: 'bold',
     },
-    errText: {
-        fontFamily: 'Nunito',
-        fontStyle: 'normal',
-        fontWeight: 'bold',
-        width: 317,
-        fontSize: 18,
-        lineHeight: 19,
-        marginTop: 10,
-        color: '#df4759'
-    }
+    // errText: {
+    //     fontFamily: 'Nunito',
+    //     fontStyle: 'normal',
+    //     fontWeight: 'bold',
+    //     width: 317,
+    //     fontSize: 18,
+    //     lineHeight: 19,
+    //     marginTop: 10,
+    //     color: '#df4759',
+    //     textAlign: 'center'
+    // }
 })
 
 export default styles

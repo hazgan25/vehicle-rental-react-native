@@ -49,6 +49,14 @@ const authReducer = (state = initialState, action) => {
                 userData
             }
 
+        case logout.concat('_', Pending):
+            return {
+                ...state,
+                isPending: true,
+                isFulfilled: false,
+                isReject: false
+            }
+
         case logout.concat('_', Fulfilled):
             return {
                 ...state,
