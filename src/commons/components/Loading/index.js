@@ -16,7 +16,8 @@ const Loading = () => {
             height: deviceHeight,
             width: deviceWidth,
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            backgroundColor: '#fff'
         }}>
             <FastImage source={vehicleRentalLoading} style={{
                 width: 300,

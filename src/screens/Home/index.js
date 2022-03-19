@@ -1,8 +1,7 @@
 import axios from 'axios'
 import {
     View, Text, Image, TextInput,
-    KeyboardAvoidingView, TouchableOpacity,
-    ScrollView, ImageBackground
+    TouchableOpacity, ScrollView, ImageBackground
 } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
@@ -10,19 +9,18 @@ import { useSelector } from 'react-redux'
 import { vehicleTypeLimit } from '../../modules/utils/vehicles'
 
 import styles from '../../commons/styles/home'
-
 import Loading from '../../commons/components/Loading'
 
 const homeBg = require('../../assets/img/home.png')
 const vehicleDefault = require('../../assets/img/vehicleDefault.png')
 const searchIconHome = require('../../assets/icons/searchIconHome.png')
 
-const Home = () => {
-    const state = useSelector(state => state)
+const Home = ({ navigation }) => {
     const [listCar, setLisCar] = useState([])
     const [listMotorBike, setListMotorBike] = useState([])
     const [listBike, setListBike] = useState([])
 
+    const state = useSelector(state => state)
     const { userData, isPending } = state.auth
 
     useEffect(() => {
@@ -41,7 +39,7 @@ const Home = () => {
             .catch((err) => {
                 console.log(err)
             })
-    }, [])
+    }, [axios, vehicleTypeLimit])
 
     return (
         <>
@@ -54,7 +52,7 @@ const Home = () => {
                         <Image source={searchIconHome} />
                     </TouchableOpacity>
                     {userData && userData.role === 'owner' ? (
-                        <TouchableOpacity style={styles.btnAdd}>
+                        <TouchableOpacity style={styles.btnAdd} onPress={() => { navigation.navigate('AddVehicle') }}>
                             <Text style={styles.addNewText}>Add New Item</Text>
                         </TouchableOpacity>
                     ) : (
@@ -67,14 +65,21 @@ const Home = () => {
                     </View>
                     {listCar.length !== 0 ? (
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                            {Array.isArray(listCar) && Array.length > 0 &&
+                            {Array.isArray(listCar) && listCar.length > 0 &&
                                 listCar.map((data) => (
                                     <React.Fragment key={data.id}>
-                                        <TouchableOpacity>
-                                            <Image source={!data.image ? vehicleDefault : { uri: data.image }} style={styles.vehiclesImgList}
+                                        <TouchableOpacity onPress={() => { navigation.navigate('VehicleDetail', data.id) }}>
+                                            <Image source={
+                                                !`${process.env.HOST}/${data.image}` ? vehicleDefault :
+                                                    !{ uri: `${process.env.HOST}/${data.image}` } ? vehicleDefault :
+                                                        { uri: `${process.env.HOST}/${data.image}` }
+                                            } style={styles.vehiclesImgList}
                                                 placeholder='blur'
                                                 blurDataURL={vehicleDefault}
-                                                onError={() => { vehicleDefault }}
+                                                onError={(e) => {
+                                                    e.onError = null
+                                                    vehicleDefault
+                                                }}
                                             />
                                         </TouchableOpacity>
                                     </React.Fragment>
@@ -94,16 +99,23 @@ const Home = () => {
                     {listMotorBike.length !== 0 ? (
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
                             {Array.isArray(listMotorBike) && Array.length > 0 &&
-                                listMotorBike.map((data, idx) => (
-                                    <>
-                                        <TouchableOpacity key={idx}>
-                                            <Image source={!data.image ? vehicleDefault : { uri: data.image }} style={styles.vehiclesImgList}
+                                listMotorBike.map((data) => (
+                                    <React.Fragment key={data.id}>
+                                        <TouchableOpacity onPress={() => { navigation.navigate('VehicleDetail', data.id) }}>
+                                            <Image source={
+                                                !`${process.env.HOST}/${data.image}` ? vehicleDefault :
+                                                    !{ uri: `${process.env.HOST}/${data.image}` } ? vehicleDefault :
+                                                        { uri: `${process.env.HOST}/${data.image}` }
+                                            } style={styles.vehiclesImgList}
                                                 placeholder='blur'
                                                 blurDataURL={vehicleDefault}
-                                                onError={() => { vehicleDefault }}
+                                                onError={(e) => {
+                                                    e.onError = null
+                                                    vehicleDefault
+                                                }}
                                             />
                                         </TouchableOpacity>
-                                    </>
+                                    </React.Fragment>
                                 ))
                             }
                         </ScrollView>
@@ -122,11 +134,18 @@ const Home = () => {
                             {Array.isArray(listBike) && Array.length > 0 &&
                                 listBike.map((data) => (
                                     <React.Fragment key={data.id}>
-                                        <TouchableOpacity>
-                                            <Image source={!data.image ? vehicleDefault : { uri: data.image }} style={styles.vehiclesImgList}
+                                        <TouchableOpacity onPress={() => { navigation.navigate('VehicleDetail', data.id) }}>
+                                            <Image source={
+                                                !`${process.env.HOST}/${data.image}` ? vehicleDefault :
+                                                    !{ uri: `${process.env.HOST}/${data.image}` } ? vehicleDefault :
+                                                        { uri: `${process.env.HOST}/${data.image}` }
+                                            } style={styles.vehiclesImgList}
                                                 placeholder='blur'
                                                 blurDataURL={vehicleDefault}
-                                                onError={() => { vehicleDefault }}
+                                                onError={(e) => {
+                                                    e.onError = null
+                                                    vehicleDefault
+                                                }}
                                             />
                                         </TouchableOpacity>
                                     </React.Fragment>

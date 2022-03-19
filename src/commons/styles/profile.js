@@ -73,6 +73,16 @@ const styles = StyleSheet.create({
         height: 12,
         width: 8,
         alignSelf: 'center'
+    },
+    boxPencil: {
+        backgroundColor: '#FFCD61',
+        width: 35,
+        height: 35,
+        borderRadius: 50,
+        alignSelf: 'flex-end',
+        bottom: 25,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 })
 

@@ -3,6 +3,8 @@ import { View, Image } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
+import { useSelector } from 'react-redux'
+
 import Login from './screens/Login'
 import Register from './screens/Register'
 import ForgotPassword from './screens/ForgotPassword'
@@ -10,6 +12,14 @@ import Home from './screens/Home'
 import History from './screens/History'
 import Chat from './screens/Chat'
 import Profile from './screens/Profile'
+import EditProfile from './screens/Profile/editProfile'
+import EditPassword from './screens/EditPassword'
+import AddVehicle from './screens/AddVehicle'
+import VehicleDetail from './screens/VehicleDetail'
+import StepOne from './screens/Payment/StepOne'
+import StepTwo from './screens/Payment/StepTwo'
+import StepThree from './screens/Payment/StepThree'
+import Finish from './screens/Payment/Finish'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -88,13 +98,36 @@ const MainTab = () => (
     </Tab.Navigator >
 )
 
-const Router = () => (
-    <Stack.Navigator initialRouteName='Main' screenOptions={{ headerShown: false }}>
-        <Stack.Screen name='Login' component={Login} />
-        <Stack.Screen name='Register' component={Register} />
-        <Stack.Screen name='ForgotPass' component={ForgotPassword} />
-        <Stack.Screen name='Main' component={MainTab} />
-    </Stack.Navigator>
-)
+const Router = () => {
+    const state = useSelector(state => state)
+    const { token } = state.auth
+    return (
+        <Stack.Navigator initialRouteName='Main' screenOptions={{ headerShown: false }} >
+            {!token ? (
+                <>
+                    <Stack.Screen name='Main' component={MainTab} />
+                    <Stack.Screen name='Login' component={Login} />
+                    <Stack.Screen name='Register' component={Register} />
+                    <Stack.Screen name='VehicleDetail' component={VehicleDetail} />
+                </>
+            ) : (
+                <>
+                    <Stack.Screen name='Main' component={MainTab} />
+                    <Stack.Screen name='Login' component={Login} />
+                    <Stack.Screen name='Register' component={Register} />
+                    <Stack.Screen name='EditProfile' component={EditProfile} />
+                    <Stack.Screen name='EditPass' component={EditPassword} />
+                    <Stack.Screen name='ForgotPass' component={ForgotPassword} />
+                    <Stack.Screen name='AddVehicle' component={AddVehicle} />
+                    <Stack.Screen name='VehicleDetail' component={VehicleDetail} />
+                    <Stack.Screen name='StepOne' component={StepOne} />
+                    <Stack.Screen name='StepTwo' component={StepTwo} />
+                    <Stack.Screen name='StepThree' component={StepThree} />
+                    <Stack.Screen name='Finish' component={Finish} />
+                </>
+            )}
+        </Stack.Navigator>
+    )
+}
 
 export default Router

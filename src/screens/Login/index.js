@@ -90,7 +90,7 @@ const Login = ({ navigation }) => {
                                 justifyContent: 'center',
                                 backgroundColor: '#fff',
                                 width: deviceWidth - 70,
-                                height: deviceHeight - 580,
+                                height: deviceHeight - 500,
                                 borderRadius: 50
                             }}>
                                 <Text style={{

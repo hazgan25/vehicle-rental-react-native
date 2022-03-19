@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, Image, Dimensions, Platform } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { View, Text, TouchableOpacity, Image, Dimensions, Platform, } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 
 import Modal from 'react-native-modal'
@@ -12,6 +12,7 @@ import { logoutAction } from '../../redux/actions/auth'
 const defaultProfile = require('../../assets/img/defaultProfile.png')
 const vehicleRentalIcon = require('../../assets/icons/vehicleRentalIcon.png')
 const nextArrow = require('../../assets/icons/nextArrow.png')
+const pencilIcon = require('../../assets/icons/pencilIcon.png')
 
 import Loading from '../../commons/components/Loading'
 
@@ -20,6 +21,7 @@ const deviceHeight = Platform.OS === 'android' ? Dimensions.get('window').height
     require('react-native-extra-dimensions-android').get('REAL_WINDOW_HEIGHT')
 
 const Profile = ({ navigation }) => {
+    const [showImg, setShowImg] = useState(defaultProfile)
     const [isModalVisible, setModalVisible] = useState(false)
     const state = useSelector(state => state)
     const dispatch = useDispatch()
@@ -48,6 +50,20 @@ const Profile = ({ navigation }) => {
             })
     }
 
+    const toEditProfile = () => {
+        navigation.navigate('EditProfile')
+    }
+
+    const editPassword = () => {
+        navigation.navigate('EditPass')
+    }
+
+    useEffect(() => {
+        if (image !== null) {
+            setShowImg({ uri: `${process.env.HOST}/${image}` })
+        }
+    }, [image])
+
     return (
         <>
             {!isPending ? (
@@ -63,9 +79,26 @@ const Profile = ({ navigation }) => {
                         ) : (
                             <View>
                                 <View style={styles.boxImg}>
-                                    <Image source={!image ? defaultProfile : { uri: image }} style={styles.profileImg} />
+                                    <Image source={showImg}
+                                        style={styles.profileImg}
+                                        onError={(e) => {
+                                            e.onError = null
+                                            setShowImg(defaultProfile)
+                                        }}
+                                    // onError={(e) => {
+                                    //     if (e.nativeEvent.error) {
+                                    //         setImageDefault(false)
+                                    //         console.log(imageProfile)
+                                    //     }
+                                    // }}
+                                    />
+                                    <TouchableOpacity onPress={toEditProfile}>
+                                        <View style={styles.boxPencil}>
+                                            <Image source={pencilIcon} />
+                                        </View>
+                                    </TouchableOpacity>
                                 </View>
-                                <Text style={styles.name}>{name}</Text>
+                                <Text style={styles.name}>{name === null ? 'No Name' : name}</Text>
                                 <Text style={styles.email}>{email}</Text>
                                 <Text style={styles.phone}>{phone === null || phone === '' ? 'No Number Phone' : phone}</Text>
                             </View>
@@ -105,7 +138,7 @@ const Profile = ({ navigation }) => {
                                     <Image source={nextArrow} style={styles.nextArrow} />
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
-                                    <Text style={styles.listText} >Update password</Text>
+                                    <Text style={styles.listText} onPress={editPassword} >Update password</Text>
                                 </View>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
                                     <Text style={styles.listText} onPress={toggleModal}>Log out</Text>
