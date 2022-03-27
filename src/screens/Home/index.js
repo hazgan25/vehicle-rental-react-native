@@ -1,11 +1,11 @@
-import axios from 'axios'
 import {
     View, Text, Image, TextInput,
     TouchableOpacity, ScrollView, ImageBackground
 } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
+import { listVehicleCarAction, listVehicleMotorbikeAction, listVehicleBikeAction } from '../../redux/actions/listVehicles'
 import { vehicleTypeLimit } from '../../modules/utils/vehicles'
 
 import styles from '../../commons/styles/home'
@@ -15,40 +15,84 @@ const homeBg = require('../../assets/img/home.png')
 const vehicleDefault = require('../../assets/img/vehicleDefault.png')
 const searchIconHome = require('../../assets/icons/searchIconHome.png')
 
-const Home = ({ navigation }) => {
-    const [listCar, setLisCar] = useState([])
+const Home = ({ navigation, route }) => {
+    const [listCar, setListCar] = useState([])
     const [listMotorBike, setListMotorBike] = useState([])
     const [listBike, setListBike] = useState([])
+    const [search, setSearch] = useState('')
 
+    const dispatch = useDispatch()
     const state = useSelector(state => state)
     const { userData, isPending } = state.auth
+    const vehicleIsPending = state.listVehicle.isPending
 
     useEffect(() => {
-        const paramCar = { type: 1, limit: 5 }
-        const paramMotorBike = { type: 2, limit: 5 }
-        const paramBike = { type: 3, limit: 5 }
-        const urlCar = vehicleTypeLimit(paramCar)
-        const urlMotorBike = vehicleTypeLimit(paramMotorBike)
-        const urlBike = vehicleTypeLimit(paramBike)
-        axios.all([urlCar, urlMotorBike, urlBike])
+        const paramCar = { search: '', type: 1, location: '', by: 'id', order: 'desc', limit: 5, page: 1 }
+        const paramMotorBike = { search: '', type: 2, location: '', by: 'id', order: 'desc', limit: 5, page: 1 }
+        const paramBike = { search: '', type: 3, location: '', by: 'id', order: 'desc', limit: 5, page: 1 }
+        // listCar
+        dispatch(listVehicleCarAction(paramCar))
             .then((res) => {
-                setLisCar(res[0].data.result.data)
-                setListMotorBike(res[1].data.result.data)
-                setListBike(res[2].data.result.data)
+                setListCar(res.value.data.result.data)
             })
-            .catch((err) => {
-                console.log(err)
+            .catch(err => console.log(err))
+
+        // listMotorBike
+        dispatch(listVehicleMotorbikeAction(paramMotorBike))
+            .then((res) => {
+                setListMotorBike(res.value.data.result.data)
             })
-    }, [axios, vehicleTypeLimit])
+            .catch(err => console.log(err))
+
+        // listBike
+        dispatch(listVehicleBikeAction(paramBike))
+            .then((res) => {
+                setListBike(res.value.data.result.data)
+            })
+            .catch(err => console.log(err))
+
+        if (route.params !== undefined) {
+            // listCar
+            dispatch(listVehicleCarAction(paramCar))
+                .then((res) => {
+                    setListCar(res.value.data.result.data)
+                })
+                .catch(err => console.log(err))
+
+            // listMotorBike
+            dispatch(listVehicleMotorbikeAction(paramMotorBike))
+                .then((res) => {
+                    setListMotorBike(res.value.data.result.data)
+                })
+                .catch(err => console.log(err))
+
+            // listBike
+            dispatch(listVehicleBikeAction(paramBike))
+                .then((res) => {
+                    setListBike(res.value.data.result.data)
+                })
+                .catch(err => console.log(err))
+        }
+    }, [vehicleTypeLimit, dispatch, route])
 
     return (
         <>
-            {!isPending ? (
+            {!isPending && !vehicleIsPending ? (
                 <ScrollView style={styles.container}>
                     <ImageBackground source={homeBg} style={styles.imgHeader} />
-                    <TextInput placeholder='Search Vehicles' style={styles.search} placeholderTextColor='#fff' />
-
-                    <TouchableOpacity style={styles.searchIcon}>
+                    <TextInput placeholder='Search Vehicles' style={styles.search} placeholderTextColor='#fff' onChangeText={e => setSearch(e)} />
+                    <TouchableOpacity style={styles.searchIcon} onPress={
+                        () => {
+                            const params = {
+                                search: search,
+                                type: '',
+                                location: '',
+                                by: '',
+                                order: '',
+                            }
+                            navigation.navigate('VehicleList', params)
+                        }
+                    }>
                         <Image source={searchIconHome} />
                     </TouchableOpacity>
                     {userData && userData.role === 'owner' ? (
@@ -61,7 +105,20 @@ const Home = ({ navigation }) => {
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 320, alignSelf: 'center', marginTop: 22 }}>
                         <Text style={styles.listText}>Cars</Text>
-                        <Text style={styles.viewMoreText}>View More</Text>
+                        <TouchableOpacity onPress={
+                            () => {
+                                const params = {
+                                    search: '',
+                                    type: 1,
+                                    location: '',
+                                    by: '',
+                                    order: '',
+                                }
+                                navigation.navigate('VehicleList', params)
+                            }
+                        }>
+                            <Text style={styles.viewMoreText}>View More</Text>
+                        </TouchableOpacity>
                     </View>
                     {listCar.length !== 0 ? (
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -69,18 +126,8 @@ const Home = ({ navigation }) => {
                                 listCar.map((data) => (
                                     <React.Fragment key={data.id}>
                                         <TouchableOpacity onPress={() => { navigation.navigate('VehicleDetail', data.id) }}>
-                                            <Image source={
-                                                !`${process.env.HOST}/${data.image}` ? vehicleDefault :
-                                                    !{ uri: `${process.env.HOST}/${data.image}` } ? vehicleDefault :
-                                                        { uri: `${process.env.HOST}/${data.image}` }
-                                            } style={styles.vehiclesImgList}
-                                                placeholder='blur'
-                                                blurDataURL={vehicleDefault}
-                                                onError={(e) => {
-                                                    e.onError = null
-                                                    vehicleDefault
-                                                }}
-                                            />
+                                            <Image source={vehicleDefault} style={styles.vehiclesImgListDefault} />
+                                            <Image source={data.image ? { uri: `${process.env.HOST}/${data.image}` } : vehicleDefault} style={styles.vehiclesImgList} />
                                         </TouchableOpacity>
                                     </React.Fragment>
                                 ))
@@ -94,7 +141,20 @@ const Home = ({ navigation }) => {
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 320, alignSelf: 'center', marginTop: 22 }}>
                         <Text style={styles.listText}>Motorbike</Text>
-                        <Text style={styles.viewMoreText}>View More</Text>
+                        <TouchableOpacity onPress={
+                            () => {
+                                const params = {
+                                    search: '',
+                                    type: 2,
+                                    location: '',
+                                    by: '',
+                                    order: '',
+                                }
+                                navigation.navigate('VehicleList', params)
+                            }
+                        }>
+                            <Text style={styles.viewMoreText}>View More</Text>
+                        </TouchableOpacity>
                     </View>
                     {listMotorBike.length !== 0 ? (
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -102,18 +162,8 @@ const Home = ({ navigation }) => {
                                 listMotorBike.map((data) => (
                                     <React.Fragment key={data.id}>
                                         <TouchableOpacity onPress={() => { navigation.navigate('VehicleDetail', data.id) }}>
-                                            <Image source={
-                                                !`${process.env.HOST}/${data.image}` ? vehicleDefault :
-                                                    !{ uri: `${process.env.HOST}/${data.image}` } ? vehicleDefault :
-                                                        { uri: `${process.env.HOST}/${data.image}` }
-                                            } style={styles.vehiclesImgList}
-                                                placeholder='blur'
-                                                blurDataURL={vehicleDefault}
-                                                onError={(e) => {
-                                                    e.onError = null
-                                                    vehicleDefault
-                                                }}
-                                            />
+                                            <Image source={vehicleDefault} style={styles.vehiclesImgListDefault} />
+                                            <Image source={data.image ? { uri: `${process.env.HOST}/${data.image}` } : vehicleDefault} style={styles.vehiclesImgList} />
                                         </TouchableOpacity>
                                     </React.Fragment>
                                 ))
@@ -127,7 +177,22 @@ const Home = ({ navigation }) => {
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: 320, alignSelf: 'center', marginTop: 22 }}>
                         <Text style={styles.listText}>Bike</Text>
-                        <Text style={styles.viewMoreText}>View More</Text>
+                        <TouchableOpacity
+                            onPress={
+                                () => {
+                                    const params = {
+                                        search: '',
+                                        type: 3,
+                                        location: '',
+                                        by: '',
+                                        order: '',
+                                    }
+                                    navigation.navigate('VehicleList', params)
+                                }
+                            }
+                        >
+                            <Text style={styles.viewMoreText}>View More</Text>
+                        </TouchableOpacity>
                     </View>
                     {listBike.length !== 0 ? (
                         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{ marginBottom: 18 }}>
@@ -135,18 +200,8 @@ const Home = ({ navigation }) => {
                                 listBike.map((data) => (
                                     <React.Fragment key={data.id}>
                                         <TouchableOpacity onPress={() => { navigation.navigate('VehicleDetail', data.id) }}>
-                                            <Image source={
-                                                !`${process.env.HOST}/${data.image}` ? vehicleDefault :
-                                                    !{ uri: `${process.env.HOST}/${data.image}` } ? vehicleDefault :
-                                                        { uri: `${process.env.HOST}/${data.image}` }
-                                            } style={styles.vehiclesImgList}
-                                                placeholder='blur'
-                                                blurDataURL={vehicleDefault}
-                                                onError={(e) => {
-                                                    e.onError = null
-                                                    vehicleDefault
-                                                }}
-                                            />
+                                            <Image source={vehicleDefault} style={styles.vehiclesImgListDefault} />
+                                            <Image source={data.image ? { uri: `${process.env.HOST}/${data.image}` } : vehicleDefault} style={styles.vehiclesImgList} />
                                         </TouchableOpacity>
                                     </React.Fragment>
                                 ))

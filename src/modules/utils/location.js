@@ -2,6 +2,10 @@ import axios from 'axios'
 
 const urlLocation = process.env.HOST + '/locations'
 
+export const getAllLocation = () => {
+    return axios.get(urlLocation + '/all')
+}
+
 export const getLocationByRenterId = (token) => {
     return axios.get(urlLocation, { headers: { 'x-access-token': token } })
 }

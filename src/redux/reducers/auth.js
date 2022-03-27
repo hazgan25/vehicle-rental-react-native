@@ -23,6 +23,7 @@ const authReducer = (state = initialState, action) => {
                 isFulfilled: false,
                 isReject: false
             }
+
         case auth.concat('_', Fulfilled):
             const token = action.payload.data.result.token
             const id = action.payload.data.result.id
@@ -33,6 +34,7 @@ const authReducer = (state = initialState, action) => {
                 id,
                 token
             }
+
         case auth.concat('_', Rejected):
             const errData = action.payload.response.data
             return {

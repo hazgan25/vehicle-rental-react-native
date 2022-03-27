@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, ScrollView, Text, TouchableOpacity, Image, Dimensions, TextInput, Platform } from 'react-native'
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -25,6 +25,7 @@ const deviceHeight = Platform.OS === 'android' ? Dimensions.get('window').height
     require('react-native-extra-dimensions-android').get('REAL_WINDOW_HEIGHT')
 
 const EditPassword = ({ navigation }) => {
+    const [showImg, setShowImg] = useState(defaultProfile)
     const [currentPass, setCurrentPass] = useState('')
     const [newPass, setNewPass] = useState('')
     const [rePass, setRepass] = useState('')
@@ -44,6 +45,12 @@ const EditPassword = ({ navigation }) => {
     const toggleModal = () => {
         setModalVisible(!isModalVisible)
     }
+
+    useEffect(() => {
+        if (image !== null) {
+            setShowImg({ uri: image })
+        }
+    }, [image])
 
     const body = {
         currentPass: currentPass,
@@ -119,8 +126,13 @@ const EditPassword = ({ navigation }) => {
 
                                 <View>
                                     <View style={stylesProfile.boxImg}>
-                                        <Image source={{ uri: image }}
-                                            style={stylesProfile.profileImg} />
+                                        <Image source={showImg}
+                                            style={stylesProfile.profileImg}
+                                            onError={e => {
+                                                e.onError = null
+                                                setShowImg(defaultProfile)
+                                            }}
+                                        />
                                     </View>
                                     <Text style={stylesProfile.name}>{name === null ? 'No Name' : name}</Text>
                                     <Text style={stylesProfile.email}>{email}</Text>

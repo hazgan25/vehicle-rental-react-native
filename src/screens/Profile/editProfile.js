@@ -118,6 +118,8 @@ const EditProfile = ({ navigation }) => {
     const { token, userData, isPending } = state.auth
     const { name, email, phone, image, dob, address, gender } = userData
 
+    console.log(sendDate)
+
     const body = new FormData()
     body.append('name', userName || '')
     body.append('email', userEmail)
@@ -144,7 +146,7 @@ const EditProfile = ({ navigation }) => {
                 }
             })
             .catch((err) => {
-                console.log(err)
+                console.log({ ...err })
             })
     }
 

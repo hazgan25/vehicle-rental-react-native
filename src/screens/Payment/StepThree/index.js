@@ -11,8 +11,10 @@ import styles from '../../../commons/styles/payment'
 const StepThree = ({ navigation, route }) => {
     const state = useSelector(state => state)
     const { token } = state.auth
-    const { id, price, location, vehicle, quantity, paymentType, date } = route.params
+    const { price, location, vehicle, vehicles_id, quantity, paymentType, date } = route.params
     const totalPrice = price * date * quantity
+
+    console.log(route.params)
 
     const randomCode = (length) => {
         let result = '';
@@ -43,14 +45,14 @@ const StepThree = ({ navigation, route }) => {
 
     const finishPaymentHandler = () => {
         const body = {
-            vehicles_id: id,
             date: date,
             quantity: quantity
         }
-        postNewHistory(body, token)
+        postNewHistory(vehicles_id, body, token)
             .then((res) => {
                 console.log(res)
                 const params = {
+                    totalPrice: totalPrice,
                     ...route.params
                 }
                 navigation.navigate('Finish', params)
@@ -58,6 +60,8 @@ const StepThree = ({ navigation, route }) => {
             .catch((err) => {
                 console.log({ ...err })
             })
+        console.log(body)
+
     }
 
     return (

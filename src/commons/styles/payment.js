@@ -113,6 +113,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10
+    },
+    paymentText: {
+        fontFamily: 'Nunito',
+        fontWeight: 'bold',
+        fontSize: 24,
+        color: '#087E0D'
     }
 })
 

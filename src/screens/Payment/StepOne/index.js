@@ -14,7 +14,7 @@ const StepOne = ({ navigation, route }) => {
     const [lastName, setLastName] = useState('')
     const [mobilePhone, setMobilePhone] = useState('')
     const [emailAddress, setEmailAddress] = useState('')
-    const [location, setLocation] = useState('')
+    const [locationAddress, setLocationAddress] = useState('')
     const [selectPaymentType, setSelectPaymentType] = useState('')
     const [paymentType, setPaymentType] = useState('')
 
@@ -30,7 +30,7 @@ const StepOne = ({ navigation, route }) => {
         }
     }, [selectPaymentType])
     const seeOrderDetailHandler = () => {
-        if (idCard === '' || firstName === '' || lastName === '' || mobilePhone === '' || emailAddress === '' || location === '' || paymentType === '') {
+        if (idCard === '' || firstName === '' || lastName === '' || mobilePhone === '' || emailAddress === '' || locationAddress === '' || paymentType === '') {
             Toast.show({
                 type: 'error',
                 text1: 'All must be filled'
@@ -40,8 +40,9 @@ const StepOne = ({ navigation, route }) => {
                 idCard: idCard,
                 firstName: firstName,
                 lastName: lastName,
+                emailAddress: emailAddress,
                 mobilePhone: mobilePhone,
-                location: location,
+                locationAddress: locationAddress,
                 paymentType: paymentType,
                 ...route.params
             }
@@ -67,7 +68,7 @@ const StepOne = ({ navigation, route }) => {
                 <TextInput style={styles.inputBox} keyboardType='email-address' placeholder='Email Address' onChangeText={text => setEmailAddress(text)} />
             </View>
             <View style={{ marginTop: 18 }}>
-                <TextInput style={styles.inputBox} placeholder='Location (home, office, etc)' onChangeText={text => setLocation(text)} />
+                <TextInput style={styles.inputBox} placeholder='Location (home, office, etc)' onChangeText={text => setLocationAddress(text)} />
             </View>
             <View style={{ marginTop: 18 }}>
                 <View style={styles.inputBox}>

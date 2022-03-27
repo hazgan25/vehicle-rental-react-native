@@ -9,6 +9,8 @@ import Login from './screens/Login'
 import Register from './screens/Register'
 import ForgotPassword from './screens/ForgotPassword'
 import Home from './screens/Home'
+import VehicleList from './screens/Home/VehicleList'
+import FilterSearch from './screens/Home/FilterSearch'
 import History from './screens/History'
 import Chat from './screens/Chat'
 import Profile from './screens/Profile'
@@ -29,9 +31,17 @@ const historyIcon = require('./assets/icons/historyIcon.png')
 const chatIcon = require('./assets/icons/chatIcon.png')
 const profileIcon = require('./assets/icons/profileIcon.png')
 
+const MainHome = () => (
+    <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
+        <Stack.Screen name='Home' component={Home} />
+        <Stack.Screen name='VehicleList' component={VehicleList} />
+        <Stack.Screen name='FilterSearch' component={FilterSearch} />
+    </Stack.Navigator>
+)
+
 const MainTab = () => (
     <Tab.Navigator initialRouteName='Home' sceneContainerStyle={{ backgroundColor: '#fff' }} screenOptions={{ headerShown: false, tabBarStyle: { height: 78, borderRadius: 10 } }} >
-        <Tab.Screen name='Home'
+        <Tab.Screen name='MainHome'
             options={{
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => (
@@ -46,7 +56,7 @@ const MainTab = () => (
                             style={{ tintColor: focused ? '#FFCD61' : '#DFDEDE', flex: 1 }} />
                     </View>
                 )
-            }} component={Home} />
+            }} component={MainHome} />
         <Tab.Screen name='History'
             options={{
                 tabBarShowLabel: false,
@@ -120,6 +130,7 @@ const Router = () => {
                     <Stack.Screen name='ForgotPass' component={ForgotPassword} />
                     <Stack.Screen name='AddVehicle' component={AddVehicle} />
                     <Stack.Screen name='VehicleDetail' component={VehicleDetail} />
+                    <Stack.Screen name='FilterSearch' component={FilterSearch} />
                     <Stack.Screen name='StepOne' component={StepOne} />
                     <Stack.Screen name='StepTwo' component={StepTwo} />
                     <Stack.Screen name='StepThree' component={StepThree} />

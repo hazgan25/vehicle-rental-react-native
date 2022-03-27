@@ -1,10 +1,12 @@
 import { ACTION_STRING } from '../actions/actionString'
 import { combineReducers } from 'redux'
 import authReducer from './auth'
+import listVehicleReducer from './listVehicles'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const reducers = combineReducers({
-    auth: authReducer
+    auth: authReducer,
+    listVehicle: listVehicleReducer
 })
 
 const rootReducer = (state, action) => {

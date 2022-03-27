@@ -43,6 +43,19 @@ const styles = StyleSheet.create({
         height: 426,
         width: width,
     },
+    vehicleImgDefault: {
+        position: 'absolute',
+        height: 426,
+        width: width,
+        resizeMode: 'cover',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 1,
+            height: 1,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 2,
+    },
     vehicleText: {
         fontFamily: 'Nunito',
         fontWeight: 'bold',

@@ -32,7 +32,7 @@ const StepTwo = ({ navigation, route }) => {
         <MainPayment>
             <View>
                 <Image source={showImg} style={styles.vehicleImg}
-                    onError={(e) => {
+                    onError={e => {
                         e.onError = null
                         setShowImg(vehicleImgDefault)
                     }}

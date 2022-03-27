@@ -171,6 +171,8 @@ const AddVehicle = ({ navigation }) => {
                         text1: 'Success Add Vehicle'
                     })
                     btnCancel()
+                    const params = { add: true }
+                    navigation.navigate('Home', params)
                 }
             })
             .catch((err) => {

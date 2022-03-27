@@ -14,23 +14,26 @@ const MainPayment = ({ children }) => {
 
     const back = () => {
         if (route.name === 'Finish') {
-            navigation.navigate('History')
+            const params = { reservation: true }
+            navigation.navigate('History', params)
         }
         if (route.name === 'StepOne') {
-            navigation.navigate('VehicleDetail')
+            // navigation.navigate('VehicleDetail')
+            navigation.goBack()
         }
         if (route.name === 'StepTwo') {
             navigation.navigate('StepOne', route.params)
         }
         if (route.name === 'StepThree') {
             navigation.navigate('StepTwo', route.params)
+
         }
     }
 
     return (
         <ScrollView style={{ backgroundColor: '#fff' }}>
             <View style={{
-                height: height + 50,
+                height: route.name === 'StepThree' ? height + 100 : height,
                 width: width - 30,
                 flex: 1,
                 alignSelf: 'center',
@@ -55,72 +58,79 @@ const MainPayment = ({ children }) => {
                         lineHeight: 38
                     }}>{route.name !== 'Finish' ? 'Payment' : 'See history'}</Text>
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 49 }}>
-                    <View style={{
-                        width: 36,
-                        height: 36,
-                        backgroundColor: '#FFCD61',
-                        borderRadius: 50,
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                        <Text style={{
-                            fontSize: 18,
-                            fontWeight: 'bold',
-                            color: '#fff'
-                        }}>1</Text>
+
+                {route.name !== 'Finish' ? (
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 49 }}>
+                        <View style={{
+                            width: 36,
+                            height: 36,
+                            backgroundColor: '#FFCD61',
+                            borderRadius: 50,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Text style={{
+                                fontSize: 18,
+                                fontWeight: 'bold',
+                                color: '#fff'
+                            }}>1</Text>
+                        </View>
+
+                        <View style={{
+                            width: 24,
+                            height: 3,
+                            alignSelf: 'center',
+                            backgroundColor: route.name !== 'StepOne' ? '#FFCD61' : '#DFDEDE'
+                        }}></View>
+
+                        <View style={{
+                            width: 36,
+                            height: 36,
+                            backgroundColor: route.name !== 'StepOne' ? '#FFCD61' : '#DFDEDE',
+                            borderRadius: 50,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Text style={{
+                                fontSize: 18,
+                                fontWeight: 'bold',
+                                color: '#fff'
+                            }}>2</Text>
+                        </View>
+
+                        <View style={{
+                            width: 24,
+                            height: 3,
+                            alignSelf: 'center',
+                            backgroundColor: route.name !== 'StepTwo' && route.name !== 'StepOne' ? '#FFCD61' : '#DFDEDE'
+                        }}></View>
+
+                        <View style={{
+                            width: 36,
+                            height: 36,
+                            backgroundColor: route.name !== 'StepTwo' && route.name !== 'StepOne' ? '#FFCD61' : '#DFDEDE',
+                            borderRadius: 50,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <Text style={{
+                                fontSize: 18,
+                                fontWeight: 'bold',
+                                color: '#fff'
+                            }}>3</Text>
+                        </View>
+
                     </View>
+                ) : (
+                    <>
+                    </>
+                )}
 
-                    <View style={{
-                        width: 24,
-                        height: 3,
-                        alignSelf: 'center',
-                        backgroundColor: route.name !== 'StepOne' ? '#FFCD61' : '#DFDEDE'
-                    }}></View>
-
-                    <View style={{
-                        width: 36,
-                        height: 36,
-                        backgroundColor: route.name !== 'StepOne' ? '#FFCD61' : '#DFDEDE',
-                        borderRadius: 50,
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                        <Text style={{
-                            fontSize: 18,
-                            fontWeight: 'bold',
-                            color: '#fff'
-                        }}>2</Text>
-                    </View>
-
-                    <View style={{
-                        width: 24,
-                        height: 3,
-                        alignSelf: 'center',
-                        backgroundColor: route.name !== 'StepTwo' && route.name !== 'StepOne' ? '#FFCD61' : '#DFDEDE'
-                    }}></View>
-
-                    <View style={{
-                        width: 36,
-                        height: 36,
-                        backgroundColor: route.name !== 'StepTwo' && route.name !== 'StepOne' ? '#FFCD61' : '#DFDEDE',
-                        borderRadius: 50,
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                        <Text style={{
-                            fontSize: 18,
-                            fontWeight: 'bold',
-                            color: '#fff'
-                        }}>3</Text>
-                    </View>
-
-                </View>
                 <View style={{ marginTop: 50 }}>
                     {children}
                 </View>
-            </View>
-        </ScrollView>
+            </View >
+        </ScrollView >
     )
 }
 

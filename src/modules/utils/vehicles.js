@@ -25,9 +25,10 @@ export const getVehicleDetail = (id) => {
     return axios.get(urlVehiclesDetail)
 }
 
-export const putVehicleById = (body, token) => {
-    return fetch(urlVehicles, {
-        method: 'PUT',
+export const patchVehicleById = (id, body, token) => {
+    const urlPatchVehicleById = urlVehicles + `/${id}`
+    return fetch(urlPatchVehicleById, {
+        method: 'PATCH',
         headers: {
             'x-access-token': token,
             Accept: 'application/json',
@@ -43,7 +44,12 @@ export const putVehicleById = (body, token) => {
         })
 }
 
-export const vehicleTypeLimit = (param) => {
-    const urlGetVehicles = urlVehicles + `?type=${param.type}&limit=${param.limit}by=rating&order=desc`
+export const vehicleTypeLimit = (params) => {
+    const urlGetVehicles = urlVehicles + `?search=${params.search}&type=${params.type}&location=${params.location}&by=${params.by}&order=${params.order}&limit=${params.limit}&page=${params.page}`
     return axios.get(urlGetVehicles)
+}
+
+export const deleteVehicleById = (id, token) => {
+    const urlDeteleVehicle = urlVehicles + `?id=${id}`
+    return axios.delete(urlDeteleVehicle, { headers: { 'x-access-token': token } })
 }

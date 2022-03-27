@@ -76,7 +76,23 @@ const styles = StyleSheet.create({
         marginRight: 12.5,
         marginTop: 18,
     },
-
+    vehiclesImgListDefault: {
+        position: 'absolute',
+        height: 168,
+        width: 265,
+        resizeMode: 'cover',
+        marginLeft: 12.5,
+        marginRight: 12.5,
+        marginTop: 18,
+        borderRadius: 15,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 1,
+            height: 1,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 2,
+    }
 })
 
 export default styles
