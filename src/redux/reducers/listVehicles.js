@@ -83,7 +83,7 @@ const listVehicle = (state = initialState, action) => {
                 isPending: false,
                 isFulfilled: true,
             }
-        case listCar.concat('_', Rejected):
+        case listMotorbike.concat('_', Rejected):
             return {
                 ...state,
                 isPending: false,
