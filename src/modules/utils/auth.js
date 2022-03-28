@@ -15,3 +15,13 @@ export const Logout = (token) => {
     const urlLogout = urlAuth + '/logout'
     return axios.delete(urlLogout, { headers: { 'x-access-token': token } })
 }
+
+export const ForgotPass = (body) => {
+    const urlForgotPass = urlAuth + '/forgot/password'
+    return axios.post(urlForgotPass, body)
+}
+
+export const resetPass = (body) => {
+    const urlResetPass = urlAuth + '/reset/password'
+    return axios.post(urlResetPass, body)
+}
