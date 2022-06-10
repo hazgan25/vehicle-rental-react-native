@@ -27,7 +27,7 @@ const Profile = ({ navigation }) => {
     const dispatch = useDispatch()
 
     const { token, userData, isPending } = state.auth
-    const { name, email, phone, image } = userData
+    const { name, email, phone, image, role } = userData
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible)
@@ -85,12 +85,6 @@ const Profile = ({ navigation }) => {
                                             e.onError = null
                                             setShowImg(defaultProfile)
                                         }}
-                                    // onError={(e) => {
-                                    //     if (e.nativeEvent.error) {
-                                    //         setImageDefault(false)
-                                    //         console.log(imageProfile)
-                                    //     }
-                                    // }}
                                     />
                                     <TouchableOpacity onPress={toEditProfile}>
                                         <View style={styles.boxPencil}>
@@ -98,7 +92,7 @@ const Profile = ({ navigation }) => {
                                         </View>
                                     </TouchableOpacity>
                                 </View>
-                                <Text style={styles.name}>{name === null ? 'No Name' : name}</Text>
+                                <Text style={styles.name}>{name === null || name === '' ? 'No Name' : name}</Text>
                                 <Text style={styles.email}>{email}</Text>
                                 <Text style={styles.phone}>{phone === null || phone === '' ? 'No Number Phone' : phone}</Text>
                             </View>
@@ -129,6 +123,18 @@ const Profile = ({ navigation }) => {
                                     <Text style={styles.listText}>Your favourites</Text>
                                     <Image source={nextArrow} style={styles.nextArrow} />
                                 </View>
+                                {role === 'owner' && (
+                                    <View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
+                                            <Text style={styles.listText} onPress={() => { navigation.navigate('VehicleProductByOwner') }}>Vehicle Product</Text>
+                                            <Image source={nextArrow} style={styles.nextArrow} />
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
+                                            <Text style={styles.listText} onPress={() => { navigation.navigate('HistoryOwnerByOwner') }}>History Order</Text>
+                                            <Image source={nextArrow} style={styles.nextArrow} />
+                                        </View>
+                                    </View>
+                                )}
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: 360, marginBottom: 34 }}>
                                     <Text style={styles.listText}>FAQ</Text>
                                     <Image source={nextArrow} style={styles.nextArrow} />

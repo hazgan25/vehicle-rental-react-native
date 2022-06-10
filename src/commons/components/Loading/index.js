@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Platform, Dimensions } from 'react-native'
+import { View, Text, Platform, Dimensions, TouchableOpacity, Linking } from 'react-native'
 
 
 import FastImage from 'react-native-fast-image'
@@ -25,6 +25,15 @@ const Loading = () => {
             }}
             />
             <Text>Loading</Text>
+            <Text style={{ textAlign: 'center', marginTop: 10 }}>if loading doesn't finish, check the vehicle rental website.
+                maybe there is a server error or maintenance</Text>
+            <TouchableOpacity>
+                <Text style={{ color: 'blue' }}
+                    onPress={() => {
+                        Linking.openURL('https://vehicle-rental-react.vercel.app/')
+                    }}
+                >Vehicle Rental Website</Text>
+            </TouchableOpacity>
         </View>
     )
 }

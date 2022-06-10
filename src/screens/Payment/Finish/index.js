@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { View, ScrollView, Dimensions, Platform, Text, TextInput, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 
 import styles from '../../../commons/styles/payment'
 import MainPayment from '../../../commons/components/MainPayment'
+
+import { useSelector } from 'react-redux'
+import { getHistoryById } from '../../../modules/utils/history'
 
 const vehicleImgDefault = require('../../../assets/img/vehicleDefault.png')
 const starIcon = require('../../../assets/icons/starIcon.png')
 
 const Finish = ({ navigation, route }) => {
-    const [showImg, setShowImg] = useState(vehicleImgDefault)
+    const state = useSelector(state => state)
+    const { token } = state.auth
 
+    const [showImg, setShowImg] = useState(vehicleImgDefault)
     const { vehicle, firstName, lastName, emailAddress, mobilePhone, image, rating, quantity, paymentType, date, locationAddress, totalPrice } = route.params
 
     const randomId = (length) => {
@@ -27,7 +32,17 @@ const Finish = ({ navigation, route }) => {
         if (image !== null) {
             setShowImg({ uri: `${process.env.HOST}/${image}` })
         }
-    }, [image])
+        const params = {
+            page: 1
+        }
+        if (token) {
+            getHistoryById(params, token)
+                .then((res) => {
+                    console.log(res)
+                })
+                .catch(err => console.log(err))
+        }
+    }, [image, token])
 
     return (
         <MainPayment>

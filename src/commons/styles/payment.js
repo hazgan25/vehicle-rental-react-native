@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFCD61',
         justifyContent: 'center',
         alignItems: 'center',
+        alignSelf: 'center',
         borderRadius: 10
     },
     paymentText: {

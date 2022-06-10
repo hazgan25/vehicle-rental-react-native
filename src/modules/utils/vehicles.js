@@ -49,6 +49,11 @@ export const vehicleTypeLimit = (params) => {
     return axios.get(urlGetVehicles)
 }
 
+export const getListVehicleByOwner = (params, token) => {
+    const urlListVehicleByOwner = urlVehicles + `/renter?search=${params.search}&type=${params.type}&location=${params.location}&by=${params.by}&order=${params.order}&limit=${params.limit}&page=${params.page}`
+    return axios.get(urlListVehicleByOwner, { headers: { 'x-access-token': token } })
+}
+
 export const deleteVehicleById = (id, token) => {
     const urlDeteleVehicle = urlVehicles + `?id=${id}`
     return axios.delete(urlDeteleVehicle, { headers: { 'x-access-token': token } })

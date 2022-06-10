@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFCD61',
         borderRadius: 40,
         right: -10,
-        top: -10
+        top: -10,
+        zIndex: 2
     },
     ratingText: {
         fontSize: 12,

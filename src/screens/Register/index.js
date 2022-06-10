@@ -27,6 +27,7 @@ const Register = ({ navigation }) => {
 
     const registerHandler = () => {
         const body = {
+            name: '',
             email: email,
             password: password,
             phone: phone

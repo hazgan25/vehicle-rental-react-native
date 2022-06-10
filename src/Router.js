@@ -3,8 +3,6 @@ import { View, Image } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { useSelector } from 'react-redux'
-
 import Login from './screens/Login'
 import Register from './screens/Register'
 import ForgotPassword from './screens/ForgotPassword'
@@ -14,6 +12,8 @@ import FilterSearch from './screens/Home/FilterSearch'
 import History from './screens/History'
 import Chat from './screens/Chat'
 import Profile from './screens/Profile'
+import ListVehicleByOwner from './screens/ListVehicleByOwner'
+import HistoryOrderByOwner from './screens/HistoryOrderByOwner'
 import EditProfile from './screens/Profile/editProfile'
 import EditPassword from './screens/EditPassword'
 import AddVehicle from './screens/AddVehicle'
@@ -40,7 +40,7 @@ const MainHome = () => (
 )
 
 const MainTab = () => (
-    <Tab.Navigator initialRouteName='Home' sceneContainerStyle={{ backgroundColor: '#fff' }} screenOptions={{ headerShown: false, tabBarStyle: { height: 78, borderRadius: 10 } }} >
+    <Tab.Navigator initialRouteName='Home' sceneContainerStyle={{ backgroundColor: '#fff' }} screenOptions={{ headerShown: false, tabBarStyle: { height: 78, borderTopRightRadius: 10, borderTopLeftRadius: 10 } }} >
         <Tab.Screen name='MainHome'
             options={{
                 tabBarShowLabel: false,
@@ -109,34 +109,23 @@ const MainTab = () => (
 )
 
 const Router = () => {
-    const state = useSelector(state => state)
-    const { token } = state.auth
     return (
         <Stack.Navigator initialRouteName='Main' screenOptions={{ headerShown: false }} >
-            {!token ? (
-                <>
-                    <Stack.Screen name='Main' component={MainTab} />
-                    <Stack.Screen name='Login' component={Login} />
-                    <Stack.Screen name='Register' component={Register} />
-                    <Stack.Screen name='VehicleDetail' component={VehicleDetail} />
-                </>
-            ) : (
-                <>
-                    <Stack.Screen name='Main' component={MainTab} />
-                    <Stack.Screen name='Login' component={Login} />
-                    <Stack.Screen name='Register' component={Register} />
-                    <Stack.Screen name='EditProfile' component={EditProfile} />
-                    <Stack.Screen name='EditPass' component={EditPassword} />
-                    <Stack.Screen name='ForgotPass' component={ForgotPassword} />
-                    <Stack.Screen name='AddVehicle' component={AddVehicle} />
-                    <Stack.Screen name='VehicleDetail' component={VehicleDetail} />
-                    <Stack.Screen name='FilterSearch' component={FilterSearch} />
-                    <Stack.Screen name='StepOne' component={StepOne} />
-                    <Stack.Screen name='StepTwo' component={StepTwo} />
-                    <Stack.Screen name='StepThree' component={StepThree} />
-                    <Stack.Screen name='Finish' component={Finish} />
-                </>
-            )}
+            <Stack.Screen name='Main' component={MainTab} />
+            <Stack.Screen name='Login' component={Login} />
+            <Stack.Screen name='Register' component={Register} />
+            <Stack.Screen name='VehicleDetail' component={VehicleDetail} />
+            <Stack.Screen name='VehicleProductByOwner' component={ListVehicleByOwner} />
+            <Stack.Screen name='HistoryOwnerByOwner' component={HistoryOrderByOwner} />
+            <Stack.Screen name='EditProfile' component={EditProfile} />
+            <Stack.Screen name='EditPass' component={EditPassword} />
+            <Stack.Screen name='ForgotPass' component={ForgotPassword} />
+            <Stack.Screen name='AddVehicle' component={AddVehicle} />
+            <Stack.Screen name='FilterSearch' component={FilterSearch} />
+            <Stack.Screen name='StepOne' component={StepOne} />
+            <Stack.Screen name='StepTwo' component={StepTwo} />
+            <Stack.Screen name='StepThree' component={StepThree} />
+            <Stack.Screen name='Finish' component={Finish} />
         </Stack.Navigator>
     )
 }

@@ -17,7 +17,6 @@ import Loading from '../../commons/components/Loading'
 
 const backArrow = require('../../assets/icons/backArrow.png')
 const defaultVehicleImg = require('../../assets/img/vehicleDefault.png')
-const vehicleDefault = require('../../assets/img/vehicleDefault.png')
 const trashIcon = require('../../assets/icons/trashIcon.png')
 const starIcon = require('../../assets/icons/starIcon.png')
 const pointerIcon = require('../../assets/icons/pointerIcon.png')
@@ -102,7 +101,6 @@ const VehicleDetail = ({ navigation, route }) => {
         }
         patchVehicleById(vehicleId, bodyUpdate, token)
             .then((res) => {
-                console.log(res)
                 if (res.result.err) {
                     Toast.show({
                         type: 'error',

@@ -106,6 +106,7 @@ const Login = ({ navigation }) => {
                                             fontFamily: 'Nunito',
                                             fontStyle: 'normal',
                                             fontWeight: 'bold',
+                                            textAlign: 'center',
                                             color: '#df4759',
                                             alignSelf: 'center'
                                         }}

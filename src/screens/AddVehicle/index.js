@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { View, ScrollView, Dimensions, Platform, Text, TextInput, TouchableOpacity, Image, } from 'react-native'
 import { useSelector } from 'react-redux'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
-// import { openPicker, openCamera } from 'react-native-image-crop-picker'
 
 import { postVehicle } from '../../modules/utils/vehicles'
 
@@ -42,47 +41,6 @@ const AddVehicle = ({ navigation }) => {
 
     const state = useSelector(state => state)
     const { token } = state.auth
-
-    // const takePicture = () => {
-    //     const options = {
-    //         mediaType: 'photo',
-    //         includeBase64: true,
-    //         includeExif: true
-    //     }
-    //     openCamera(options)
-    //         .then((res) => {
-    //             let imgArr = []
-    //             imgArr.push(res)
-    //             setVehicleImg(imgArr)
-    //         })
-    //         .catch((err) => {
-    //             console.log(err)
-    //         })
-    // }
-
-    // const browserGalery = () => {
-    //     const options = {
-    //         multiple: true,
-    //         mediaType: 'photo',
-    //         includeBase64: true,
-    //         includeExif: true
-    //     }
-    //     openPicker(options)
-    //         .then((res) => {
-    //             let imgArr = []
-    //             res.map(image => {
-    //                 imgArr.push({
-    //                     name: 'image',
-    //                     path: image.path,
-    //                     data: image.data
-    //                 })
-    //             })
-    //             setVehicleImg(imgArr)
-    //         })
-    //         .catch((err) => {
-    //             console.log(err)
-    //         })
-    // }
 
     const takePicture = () => {
         const options = {
