@@ -364,7 +364,9 @@ const AddVehicle = ({ navigation }) => {
                                     }} onChangeText={text => setAddLocation(text)} />)}
                                 <View style={{ flexDirection: 'row', justifyContent: addLocMsg !== '' ? 'center' : 'space-between', width: deviceWidth - 170, top: 33 }} >
                                     {addLocMsg !== '' ? (<></>) : (
-                                        <TouchableOpacity style={{ backgroundColor: 'grey', borderRadius: 10, width: 80, height: 50 }} onPress={toggleModal}>
+                                        <TouchableOpacity style={{
+                                            backgroundColor: 'grey', borderRadius: 10, width: 80, height: 50
+                                        }} onPress={toggleModal}>
                                             <Text style={{
                                                 fontWeight: 'bold',
                                                 color: '#fff',

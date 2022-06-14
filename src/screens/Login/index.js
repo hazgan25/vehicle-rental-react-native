@@ -6,14 +6,13 @@ import {
     Dimensions, Platform
 } from 'react-native'
 import Modal from 'react-native-modal'
+import styles from '../../commons/styles/auth'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { loginAction } from '../../redux/actions/auth'
 import { userAction } from '../../redux/actions/auth'
 
 import Loading from '../../commons/components/Loading'
-
-import styles from '../../commons/styles/auth'
 
 const authBg = require('../../assets/img/authBg.png')
 
