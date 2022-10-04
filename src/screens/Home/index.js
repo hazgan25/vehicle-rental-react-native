@@ -35,7 +35,11 @@ const Home = ({ navigation, route }) => {
             .then((res) => {
                 setListCar(res.value.data.result.data)
             })
-            .catch(err => console.log(err))
+            .catch((err) => {
+                if (err) {
+                    navigation.replace('ErrorServer')
+                }
+            })
 
         // listMotorBike
         dispatch(listVehicleMotorbikeAction(paramMotorBike))

@@ -44,7 +44,7 @@ Vehicle Rental Mobile Apps is a service for renting a vehicle, using React Nativ
 ## 1 Clone Repository
 
 ```
-git clone https://github.com/Hazgn/vehicle-rental-react-native.git
+git clone <this repo url>
 ```
 
 ## 2 Install dependencies Package
@@ -64,7 +64,9 @@ You will need Node, the React Native command line interface, a JDK, and Android 
 
 While you can use any editor of your choice to develop your app, you will need to install Android Studio in order to set up the necessary tooling to build your React Native app for Android.
 
-click for tutorials : <a href="'https://reactnative.dev/docs/environment-setup">Click Here!</a>
+click for tutorials : [cick here!](https://reactnative.dev/docs/environment-setup)
+
+noted : i'm using JDK 11
 
 ## 4 Setups Project
 
@@ -108,7 +110,7 @@ Later the emulator will open itself if you have set dependencies
 
 # Deployment
 
-### `example of this project` <https://1drv.ms/u/s!AnxXrMntEh4OmNlMBVl4OA9htYQ5TA?e=Eqd7mh>
+### `example of this project` <https://bit.ly/3C9Golk>
 
 # Related Projects
 

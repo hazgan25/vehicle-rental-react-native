@@ -22,6 +22,7 @@ import StepOne from './screens/Payment/StepOne'
 import StepTwo from './screens/Payment/StepTwo'
 import StepThree from './screens/Payment/StepThree'
 import Finish from './screens/Payment/Finish'
+import ErrorServer from './screens/ErrorServer'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -114,6 +115,7 @@ const Router = () => {
             <Stack.Screen name='Main' component={MainTab} />
             <Stack.Screen name='Login' component={Login} />
             <Stack.Screen name='Register' component={Register} />
+            <Stack.Screen name='ErrorServer' component={ErrorServer} />
             <Stack.Screen name='VehicleDetail' component={VehicleDetail} />
             <Stack.Screen name='VehicleProductByOwner' component={ListVehicleByOwner} />
             <Stack.Screen name='HistoryOwnerByOwner' component={HistoryOrderByOwner} />
